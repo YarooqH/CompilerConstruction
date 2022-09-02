@@ -32,11 +32,10 @@ public class WordBreaker
             lineNo += 1;
             string singleWord = line + " ";
             for (i = 0; i <= singleWord.Length - 1; i++){                                                        
-                if (singleWord[i] == '#') break;                              // This condition is for the SINGLE LINE comment
-                                                                    
-                if ((singleWord[i] == '*' && singleWord[i+1] == '/') || commentStatus == true)                     // This condition is for the MULTI LINE comment
+                if (singleWord[i] == '#') break;                             
+                if ((singleWord[i] == '*' && singleWord[i+1] == '/') || commentStatus == true)
                 {                                                                       
-                    commentStatus = isComment(singleWord, commentStatus);           // commentStatus maintains the status for Multi-line comment
+                    commentStatus = isComment(singleWord, commentStatus);
                     if (commentStatus) break;
                 }
 
@@ -125,11 +124,11 @@ public class WordBreaker
                             {
                                 insertWord(singleWord[i]);
                                 count += 1;
-                                if (i == singleWord.Length - 1) break;     //Case: {"\ }
+                                if (i == singleWord.Length - 1) break;    
 
                                 insertWord(singleWord[i]);
                                 ch = ' ';
-                                continue;                        //Added continue for this case { "\" }
+                                continue;                        
                             }
                             insertWord(singleWord[i]);
                             count += 1;
