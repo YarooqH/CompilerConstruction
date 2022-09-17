@@ -4,7 +4,7 @@ using System.Text;
 public class WordBreaker
 {
     private char[] wordBreakers = { 
-        '(',')','[',']','{','}',';',':',',','+','-','*','/','%','<','>','=','!',' ','\'','"', '@'
+        '(',')','[',']','{','}',';',':',',','+','-','*','/','%','<','>','=','!',' ','\'','"', '@', '&', '|'
     };
     private int i, lineNo;
     private string word = "";
