@@ -1,8 +1,10 @@
 using System.Collections;
+using System;
+using System.Text;
 public class WordBreaker
 {
     private char[] wordBreakers = { 
-        '(',')','[',']','{','}',';',':',',','+','-','*','/','%','<','>','=','!',' ','\'','"' 
+        '(',')','[',']','{','}',';',':',',','+','-','*','/','%','<','>','=','!',' ','\'','"', '@'
     };
     private int i, lineNo;
     private string word = "";
@@ -14,13 +16,6 @@ public class WordBreaker
         wordsLi = new ArrayList();
         lines = System.IO.File.ReadAllLines(@".\files\input.txt");
     }
-
-    public WordBreaker(string path){    
-        wordsLi = new ArrayList();
-        lines = System.IO.File.ReadAllLines(@path);
-    }
-    
-    // GETTERS
     public ArrayList getWords(){
         breakIntoWords();
         return wordsLi;
@@ -32,11 +27,10 @@ public class WordBreaker
             lineNo += 1;
             string singleWord = line + " ";
             for (i = 0; i <= singleWord.Length - 1; i++){                                                        
-                if (singleWord[i] == '#') break;                              // This condition is for the SINGLE LINE comment
-                                                                    
-                if ((singleWord[i] == '*' && singleWord[i+1] == '/') || commentStatus == true)                     // This condition is for the MULTI LINE comment
+                if (singleWord[i] == '#') break;                       
+                if ((singleWord[i] == '/' && singleWord[i+1] == '*') || commentStatus == true)
                 {                                                                       
-                    commentStatus = isComment(singleWord, commentStatus);           // commentStatus maintains the status for Multi-line comment
+                    commentStatus = isComment(singleWord, commentStatus);
                     if (commentStatus) break;
                 }
 
@@ -98,11 +92,11 @@ public class WordBreaker
                             if (singleWord[i] == '\\')
                             {
                                 insertWord(singleWord[i]);
-                                if (i == singleWord.Length - 1) break;     //Case: {"\ }
+                                if (i == singleWord.Length - 1) break;
 
                                 insertWord(singleWord[i]);
                                 ch = ' ';
-                                continue;                        //Added continue for this case { "\" }
+                                continue;              
                             }
                             insertWord(singleWord[i]);
                         }
@@ -173,8 +167,15 @@ public class WordBreaker
     private bool isComment(string singleWord, bool commentStatus)
     {
         int index;
-        if (commentStatus == true) index = singleWord.IndexOf('*', i);   
-        else index = singleWord.IndexOf('*', i + 1);
+        if (commentStatus == true) {
+            index = singleWord.IndexOf("/", i);   
+            // Console.WriteLine(index);
+        }
+        else{
+            index = singleWord.IndexOf("*/", i + 1);
+            // Console.WriteLine(index);
+        }
+
         if (index == -1){ 
             return true;
         }                                                  
@@ -197,11 +198,13 @@ public class WordBreaker
     }
 
     public void writeWordsToFile(){      
-        using (StreamWriter sw = File.AppendText(@".\files\WordBreakerOutput.txt"))
+        using (FileStream sw = File.Create(@".\files\WordBreakerOutput.txt"))
         {   
             foreach (string[] item in wordsLi)
             {
-                sw.WriteLine(item[0] + " \t\t\t" + item[1]);                                
+                byte[] txt = new UTF8Encoding(true).GetBytes(item[0] + " \t\t\t" + item[1]+'\n');
+                sw.Write(txt, 0, txt.Length);
+                // sw.Write(item[0] + " \t\t\t" + item[1]);                                
             }
         }
     }

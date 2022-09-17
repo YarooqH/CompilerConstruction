@@ -127,19 +127,6 @@ public class LexicalAnalyzer
         return tokensLi;
     }
 
-    // public void writeTokensToFile1(string txt){
-    //     string fileName = @".\files\LexicalTokenOutput.txt";  
-    //     // string newTxt = txt;
-    //     try {    
-    //         using(FileStream fs = File.Create(fileName)){
-    //         byte[] info = new UTF8Encoding(true).GetBytes(txt);
-    //         fs.Write(info, 0, info.Length);
-    //     }   
-    // } catch (Exception Ex){    
-    //         Console.WriteLine(Ex.ToString());    
-    //     }
-    // }
-
     public void writeTokensToFile(string txt)
         { 
             using (StreamWriter sw = File.AppendText(@".\files\LexicalAnalyzerTokenOutput.txt"))

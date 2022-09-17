@@ -10,7 +10,14 @@ a996.876.123asd.5642b656.
 95{9.76@.556.ad.dh.g;gk
 a.b55.c
 243..43
-$
+#akfjdsdfj
+/* 
+    sadsaww
+*/
+abc - 5 #asjhf
+abc=5 /*jdfkdj*/
+
+string b = "sdkfj #sdfjh"
 
 # CHARACTER TEST CASES
 $
@@ -31,7 +38,6 @@ $
 $
 
 # STRING TEST CASES 
-$
 "";
 "ABDS";
 "ABDS
@@ -40,7 +46,6 @@ $
 "\  Q";"A";
 "\n/n";
 "\r\z\a\n\\\"|%^&&";
-$
 
 # RELATONAL OPERATORS TEST CASES
 $
@@ -51,7 +56,6 @@ if(word<="");
 $
 
 # RANDOM Test Cases
-$
 string word = '\'';
 if(word<=""){
 }
@@ -59,8 +63,6 @@ char ch;
 int i;
 bool flag=false;
 $
-
-# RANDOM GANDA test case
 
 $
 Child_Of A_B_C;; a+b-55{
@@ -100,3 +102,10 @@ class Solution {
         
     }
 }
+
+class A_B_C::a<<<b--6
+if else (a!!!b&&c!==d)
+while(((a&&c!==56.76
+char ch="abc+=56\\"abc&"+=65\\"+=b
+str='c'++'\\+=''ch'\\r'c
+a+ 77.88bc.69bc.b696b.55
