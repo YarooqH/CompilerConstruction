@@ -9,6 +9,8 @@ public class LexicalAnalyzer
     Hashtable hashTable;
     ArrayList tokensLi;
 
+    int lastLine;
+
     public LexicalAnalyzer(){
         tokensLi = new ArrayList();
         hashTable = new Hashtable();
@@ -124,6 +126,8 @@ public class LexicalAnalyzer
                     tokensLi.Add(new TokenObj(wordData[1], TokenClass.ERR, wordData[0]));
                     continue; 
                 }}}
+            // int lastline = wordsList.Length
+            tokensLi.Add(new TokenObj("$", TokenClass.PROGEND, lastLine.ToString()));
         return tokensLi;
     }
 

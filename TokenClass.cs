@@ -51,6 +51,7 @@ public enum TokenClass {
     NULL,               // DataType
     ERR,             // Invalid Lexeme
     RETURN,         // Inside function
-    RETURNS         // Function Declaration
+    RETURNS,         // Function Declaration
+    ENDPROG
 }
 
