@@ -16,7 +16,7 @@ public class WB
     public WB() {
         words = new List<string[]>();
 
-        lines = System.IO.File.ReadAllLines(@".\files\input.txt");
+        lines = System.IO.File.ReadAllLines(@".\files\newinput.txt");
     }
     
     public WB (string path)

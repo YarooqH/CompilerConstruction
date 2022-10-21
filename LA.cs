@@ -94,16 +94,4 @@ class LA
         }
         return tokens;
     }
-
-    // private bool isNum(char ){
-
-    // }
-
-    // private TokenClass checkType(string word)
-    // {
-    //     if(ht.ContainsKey(word)) 
-    //     char? ch = word?[0];
-    //         return;
-    // }
-
 }

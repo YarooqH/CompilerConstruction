@@ -16,6 +16,17 @@
 <LIST> -> ;
 <LIST> -> , ID <INIT> <LIST>
 
+<CONST> -> 1
+<CONST> -> 2
+<CONST> -> 3
+<CONST> -> 4
+<CONST> -> 5
+<CONST> -> 6
+<CONST> -> 7
+<CONST> -> 8
+<CONST> -> 9
+<CONST> -> 0
+
 <DT> -> number
 <DT> -> string
 <DT> -> bool
@@ -117,6 +128,7 @@
 <OBJ_DEF> -> new ID ( <OE> );
 
 <RETURNS> -> returns ( <RETURNS_DT> )
+<RETURNS> -> E
 <RETURNS_DT> -> <DT>
 <RETURN_DT> -> array
 
