@@ -27,10 +27,6 @@ public class SyntaxAnalyzer
                 val.Add(arr[1].Trim().Split(" "));
                 // Console.WriteLine(arr[1]);
                 rules.Add(arr[0].Trim(), val);
-                // foreach (string item in arr)
-                // {
-                //     Console.WriteLine(item);
-                // }
             }
         }
     }
@@ -78,7 +74,7 @@ public class SyntaxAnalyzer
         System.Console.WriteLine(rules[currentNT]);
 
         List<String[]> productionRules = rules[currentNT];
-        System.Console.WriteLine("------------");
+        System.Console.WriteLine("=======================");
 
         foreach (String[] pr in productionRules)        
         {
@@ -102,7 +98,7 @@ public class SyntaxAnalyzer
 
                     if (!helper(element))
                     {
-                        System.Console.WriteLine("@backing off");
+                        System.Console.WriteLine("tracking back, Did not match");
                         index = prev;
                         break;
 
