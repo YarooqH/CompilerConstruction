@@ -1,8 +1,8 @@
 public class TokenObj
 {
-    string lineNum { get; set; }
-    string word { get; set; }
-    TokenClass? classPart { get; set; }
+    public string lineNum { get; set; }
+    public string word { get; set; }
+    public TokenClass? classPart { get; set; }
 
     public TokenObj(string lineNum, TokenClass? classPart, string word)
     {

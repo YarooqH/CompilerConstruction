@@ -9,7 +9,7 @@ public class LexicalAnalyzer
     Hashtable hashTable;
     ArrayList tokensLi;
 
-    int lastLine;
+    int lastLine = 0;
 
     public LexicalAnalyzer(){
         tokensLi = new ArrayList();
@@ -126,8 +126,17 @@ public class LexicalAnalyzer
                     tokensLi.Add(new TokenObj(wordData[1], TokenClass.ERR, wordData[0]));
                     continue; 
                 }}}
-            // int lastline = wordsList.Length
-            tokensLi.Add(new TokenObj("$", TokenClass.PROGEND, lastLine.ToString()));
+
+            lastLine = wordsList.Count - 1;
+            string newLine;
+            int number = 0;
+            foreach (string[] wordData in wordsList){
+                newLine = wordData[1];
+                // Console.WriteLine(newLine);
+                bool isInt = Int32.TryParse(newLine, out number);
+            }
+            number = number + 1;
+            tokensLi.Add(new TokenObj("$", TokenClass.ENDPROG, number.ToString()));
         return tokensLi;
     }
 

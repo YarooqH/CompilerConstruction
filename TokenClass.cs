@@ -50,8 +50,8 @@ public enum TokenClass {
     INTERFACE,          // interface
     NULL,               // DataType
     ERR,             // Invalid Lexeme
+    ENDPROG,
     RETURN,         // Inside function
-    RETURNS,         // Function Declaration
-    ENDPROG
+    RETURNS         // Function Declaration
 }
 
