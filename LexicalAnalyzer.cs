@@ -64,6 +64,7 @@ public class LexicalAnalyzer
         hashTable.Add("public", TokenClass.AM);
         hashTable.Add("scoped", TokenClass.AM);
         hashTable.Add("protected", TokenClass.AM);
+        hashTable.Add("function", TokenClass.FUNC);
     }
 
     public ArrayList generateTokens(ArrayList wordsList){

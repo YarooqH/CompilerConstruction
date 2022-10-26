@@ -193,11 +193,16 @@ public class WB
     private bool Check_Comment_Status(string l, bool flag)
     {
         int index;
-        if (flag == true) index = l.IndexOf('$', i);    // cases that avoids skipping of '$' 
-        else index = l.IndexOf('$', i + 1);
+        if (flag == true) {
+            index = l.IndexOf("/", i);   
+        }
+        else{
+            index = l.IndexOf("*/", i + 1);
+        }
 
-        if (index == -1) return true;                   // flag is true if current line dosen't conatin '$'
-                                                        // Break to get to the next line
+        if (index == -1){ 
+            return true;
+        }                                                  
         i = index + 1;
         return false;
     }

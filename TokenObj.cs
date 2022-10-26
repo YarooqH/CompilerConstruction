@@ -13,7 +13,7 @@ public class TokenObj
 
     public override string ToString()
     {
-        return word.ToString() + " \t\t\t" + classPart.ToString() + " \t\t\t" + lineNum;
+        return word + " \t\t\t" + classPart.ToString() + " \t\t\t" + lineNum;
     }
     
 }

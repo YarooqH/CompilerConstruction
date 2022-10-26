@@ -21,22 +21,24 @@ class LA
             {"||", TokenClass.OR},{"return", TokenClass.RETURN},
             {"returns", TokenClass.RETURNS},{"(", TokenClass.ORB},
             {")", TokenClass.CRB},{"[", TokenClass.OSB},
-            {"]", TokenClass.CRB},{"{",TokenClass.OCB},
+            {"]", TokenClass.CSB},{"{",TokenClass.OCB},
             {"}", TokenClass.CCB}, {"if", TokenClass.IF},
             {"else", TokenClass.ELSE},{"for", TokenClass.FOR},
             {"while", TokenClass.WHILE}, {"do", TokenClass.DO},
             {"break", TokenClass.BREAK}, {"continue", TokenClass.CONT},
-            {"num", TokenClass.DT}, {"bool", TokenClass.DT},
-            {"string", TokenClass.DT}, {";", TokenClass.SEMICOL},
-            {":", TokenClass.COL}, {",",TokenClass.COM},
+            {"number", TokenClass.DT}, {"bool", TokenClass.DT},
+            {"string", TokenClass.DT}, {"void", TokenClass.DT},
+            {";", TokenClass.SEMICOL}, {":", TokenClass.COL}, 
+            {",",TokenClass.COM},
             {">>", TokenClass.EXT}, {"null", TokenClass.NULL}, 
             {"abstract", TokenClass.ABS}, {"avail", TokenClass.AVAIL},
             {"new", TokenClass.NEW}, {"class", TokenClass.CLASS}, 
             {"const", TokenClass.CONST}, {"let", TokenClass.LET}, 
             {"current", TokenClass.CURR}, {"super", TokenClass.PARENT}, 
             {"public", TokenClass.AM}, {"scoped", TokenClass.AM},
-            {"protected", TokenClass.AM}
-
+            {"protected", TokenClass.AM}, {"func", TokenClass.FUNC},
+            {"constructor", TokenClass.CONSTRUCTOR}
+            // {"$", TokenClass.ENDPROG}
         };
     
 

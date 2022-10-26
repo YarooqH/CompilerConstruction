@@ -4,8 +4,8 @@ public class SyntaxAnalyzer
 {
     List<TokenObj> tokens;
     Dictionary<string,List<string[]>> rules;
-    int index =0;
-    // LexicalAnalyzer la = new LexicalAnalyzer();
+    int index = 0;
+    LexicalAnalyzer la = new LexicalAnalyzer();
     public SyntaxAnalyzer(List<TokenObj> tokens)
     {
         this.rules = new Dictionary<string,List<string[]>>();
@@ -81,32 +81,22 @@ public class SyntaxAnalyzer
             System.Console.WriteLine("% " + currentNT + " -> " );
             int prev = index;
             int j = 0;
-            for (; j < pr.Length; j++)
-            {
-
-                String element = pr[j];
-                
+            for (; j < pr.Length; j++) {
+                String element = pr[j];                
                 System.Console.WriteLine("\nElement :" + element + "' { of :" + currentNT + "}");
-                if (element[0] == '$')
-                {
+                if (element[0] == '^') {
                     ++index;
                     return true;
                 }
-                if (element[0] == '<')
-                {
+                if (element[0] == '<') {
                     System.Console.WriteLine("into => " + element);
-
-                    if (!helper(element))
-                    {
+                    if (!helper(element)){
                         System.Console.WriteLine("tracking back, Did not match");
                         index = prev;
                         break;
-
                     }
                 }
-                else if (element.Length == 1 && element[0] == 'E')
-                {
-
+                else if (element.Length == 1 && element[0] == 'E'){
                     continue;
                 }
                 else
@@ -115,8 +105,10 @@ public class SyntaxAnalyzer
                     System.Console.WriteLine("tokens.get(index).type =" + tokens[index].classPart.ToString() + "'");
                     System.Console.WriteLine("tokens.get(index).type =" + tokens[index].word + "'");
                     // string a = la.ht.Contains();
+
+                    Console.WriteLine(element + " : "  + tokens[index].classPart.ToString() );
                     
-                    if (string.Equals(element,tokens[index].classPart.ToString(), StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(element, tokens[index].classPart.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         index++;
                         System.Console.WriteLine("Matched Terminal =" + element);
@@ -133,7 +125,6 @@ public class SyntaxAnalyzer
             }
 
         }
-
         return false;
     }
 

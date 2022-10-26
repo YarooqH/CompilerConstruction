@@ -1,4 +1,4 @@
-<START> -> <DEFS> main () { <MST> } $
+<START> -> <DEFS> main ORBCRB OCB <MST> CCB $
 
 <DEFS> -> <CLASS_DEF> <DEFS>
 <DEFS> -> <OBJ_DEF> <DEFS>
@@ -19,10 +19,15 @@
 <DT> -> number
 <DT> -> string
 <DT> -> bool
+<DT> -> void
 
 <DT> -> ID
 
-<FUNC_DEF> -> function ID ( <OE> ) <RETURNS> { <MST> }
+<FUNC_DEF> -> func ID ORB <PARAM> CRB <RETURNS> OCB <MST> CCB
+
+<PARAM> -> ID
+<PARAM> -> <DT>
+<PARAM> -> E
 
 <OE> -> <AE> <OE'>
 <OE'> -> || <AE> <OE'>
@@ -33,19 +38,19 @@
 <RE> -> <E> <RE'>
 <RE'> -> ROP <E> <RE'> 
 <RE'> -> E
-<E> -> <T><E'>
-<E'> -> PM <T><E'>
+<E> -> <T> <E'>
+<E'> -> PM <T> <E'>
 <E'> -> E
-<T> -> <F><T'>
+<T> -> <F> <T'>
 <T'> -> MDM <F> <T'>
 <T'> -> E
 <F> -> ID <F'>
-<F> -> <CONST>
+<F> -> CONST
 <F> -> <INC_DEC>
 <F'> -> E
 <F'> -> <INC_DEC>
 
-<CONSTRUCTOR> -> constructor ( <OE> ) { <MST> }
+<CONSTRUCTOR> -> constructor ORB <OE> CRB OCB <MST> CCB
 
 <BODY> -> <SST>
 <BODY> -> <MST>
@@ -97,7 +102,7 @@
 <ACC_MOD> -> protected
 <ACC_MOD> -> E
 
-<FOR_ST> -> for ( <S1> <S2> ; <S3> ) <BODY> 
+<FOR_ST> -> for ORB <S1> <S2> ; <S3> CRB <BODY> 
 <S1> -> <VAR_DEF>
 <S1> -> <ASSIGN_ST>;
 <S1> -> ;
@@ -107,22 +112,23 @@
 <S3> -> <INC_DEC> ID
 <S3> -> E
 
-<WHILE_ST> -> while ( <OE> ) <BODY>
+<WHILE_ST> -> while ORB <OE> CRB <BODY>
 
-<DO_WHILE_ST> -> do <BODY> while ( <OE> );
+<DO_WHILE_ST> -> do <BODY> while ORB <OE> CRB;
 
-<IF_ST> -> if ( <OE> ) <BODY> <ELSE>
+<IF_ST> -> if ORB <OE> CRB <BODY> <ELSE>
 <ELSE> -> else <BODY>
 
-<OBJ_DEF> -> new ID ( <OE> );
+<OBJ_DEF> -> new ID ORB <OE> CRB;
 
-<RETURNS> -> returns ( <RETURNS_DT> )
+<RETURNS> -> returns ORB <RETURNS_DT> CRB
 <RETURNS_DT> -> <DT>
-<RETURN_DT> -> array
+<RETURNS_DT> -> array
+<RETURNS_DT> -> E
 
 <RETURN> -> return <OE>
 
-<ABSTRACT_DEF> -> abstract ID { <ABS_BODY> }
+<ABSTRACT_DEF> -> abstract ID OCB <ABS_BODY> CCB
 <ABS_BODY> -> <FUNC_DEF> <ABS_BODY> 
 <ABS_BODY> -> <DEC>
 <ABS_BODY> -> E

@@ -170,11 +170,9 @@ public class WordBreaker
         int index;
         if (commentStatus == true) {
             index = singleWord.IndexOf("/", i);   
-            // Console.WriteLine(index);
         }
         else{
             index = singleWord.IndexOf("*/", i + 1);
-            // Console.WriteLine(index);
         }
 
         if (index == -1){ 
