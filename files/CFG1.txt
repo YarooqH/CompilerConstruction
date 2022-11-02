@@ -1,0 +1,162 @@
+<START> -> <DEFS> main ORB CRB OCB <MST> CCB ^
+
+<DEFS> -> <CLASS_DEF> <DEFS>
+<DEFS> -> <OBJ_DEF> <DEFS>
+<DEFS> -> <ABSTRACT_DEF> <DEFS>
+<DEFS> -> <FUNC_DEF> <DEFS>
+<DEFS> -> <VAR_DEF> <DEFS>
+<DEFS> -> <ARRAY_DEF> <DEFS>
+<DEFS> -> E
+
+<VAR_DEF> -> <VAR_TYPE> ID: <DT> <INIT>
+<VAR_TYPE> -> let
+<VAR_TYPE> -> const
+<INIT> -> = <CONST> <LIST>
+<INIT> -> E
+<LIST> -> ;
+<LIST> -> , ID <INIT> <LIST>
+
+<DT> -> number
+<DT> -> string
+<DT> -> bool
+<DT> -> void
+
+#<DT> -> ID
+
+<FUNC_DEF> -> func ID ORB <PARAM> CRB <RETURNS> OCB <MST> CCB
+
+<PARAM> -> ID
+<PARAM> -> <DT>
+<PARAM> -> E
+
+<OE> -> <AE> <OE'>
+<OE'> -> || <AE> <OE'>
+<OE'> -> E
+<AE> -> <RE> <AE'>
+<AE'> -> && <RE> <AE'>
+<AE'> -> E
+<RE> -> <E> <RE'>
+<RE'> -> ROP <E> <RE'> 
+<RE'> -> E
+<E> -> <T> <E'>
+<E'> -> PM <T> <E'>
+<E'> -> E
+<T> -> <F> <T'>
+<T'> -> MDM <F> <T'>
+<T'> -> E
+<F> -> ID <F'>
+<F> -> CONST
+<F> -> <INC_DEC>
+<F'> -> E
+<F'> -> <INC_DEC>
+
+<CONSTRUCTOR> -> constructor ORB <OE> CRB OCB <MST> CCB
+
+<BODY> -> <SST>
+<BODY> -> <MST>
+<BODY> -> E
+
+<MST> -> <SST> <MST>
+<MST> -> E
+
+<SST> -> <WHILE_ST>
+<SST> -> <FOR_ST>
+<SST> -> <DO_WHILE_ST>
+<SST> -> <IF_ELSE_ST>
+<SST> -> <VAR_DEF>
+<SST> -> <INC_DEC>
+<SST> -> <FUNC_DEF>
+<SST> -> <ARRAY_DEF>
+<SST> -> <CONSTRUCTOR>
+<SST> -> <CURRENT>
+<SST> -> <PARENT>
+
+<CURRENT> -> current.
+<CURRENT> -> E
+
+<PARENT> -> parent.
+<PARENT> -> E
+
+<INC_DEC> -> <INC_DEC_BODY> <CURRENT> ID ;
+#<LHP>
+<INC_DEC_BODY> -> ++
+<INC_DEC_BODY> -> --
+
+<INHERITANCE> -> >> ID <INHERITANCE>
+<INHERITANCE> -> E
+
+<ASSIGN_ST> -> <CURRENT> ID <INIT> <LIST>
+<ASSIGN_OP> -> =
+<ASSIGN_OP> -> <ARITH_ASSIGN>
+<ARITH_ASSIGN> -> +=
+<ARITH_ASSIGN> -> -=
+<ARITH_ASSIGN> -> *=
+<ARITH_ASSIGN> -> /=
+
+<ARRAY_DEF> -> <VAR_TYPE> ID: <DT> [ <ARR> ]
+<ARR> -> [ <ARR> ]
+<ARR> -> <OE>
+<ARR> -> E
+
+<ACC_MOD> -> scoped
+<ACC_MOD> -> protected
+<ACC_MOD> -> E
+
+<FOR_ST> -> for ORB <S1> <S2> ; <S3> CRB <BODY> 
+<S1> -> <VAR_DEF>
+<S1> -> <ASSIGN_ST>;
+<S1> -> ;
+<S2> -> <OE>
+<S2> -> E
+<S3> -> ID
+<S3> -> <INC_DEC> ID
+<S3> -> E
+
+<WHILE_ST> -> while ORB <OE> CRB <BODY>
+
+<DO_WHILE_ST> -> do <BODY> while ORB <OE> CRB;
+
+<IF_ELSE_ST> -> if ORB <OE> CRB <BODY> <ELSE>
+<ELSE> -> else <BODY>
+
+<OBJ_DEF> -> new ID ORB <OE> CRB;
+
+<RETURNS> -> RETURNS ORB DT CRB
+<RETURNS_DT> -> <DT>
+#<RETURNS_DT> -> array
+#<RETURNS_DT> -> E
+
+<RETURN> -> return <OE>
+
+<ABSTRACT_DEF> -> abstract ID OCB <ABS_BODY> CCB
+<ABS_BODY> -> <FUNC_DEF> <ABS_BODY> 
+<ABS_BODY> -> <DEC>
+<ABS_BODY> -> E
+<DEC> -> <VAR_DEF> <DEC>
+<DEC> -> E
+
+
+<CLASS_MOD> -> avail
+<CLASS_MOD> -> const
+<CLASS_MOD> -> abstract
+<CLASS_MOD> -> E
+
+<CLASS_DEF> -> <AM> class ID <INHERITANCE_CLASS> <CLASS_BODY>
+<AM> -> <ACC_MOD> <CLASS_MOD>
+<AM> -> E
+<INHERITANCE_CLASS> -> >> ID <IMPLEMENTS> 
+<INHERITANCE_CLASS> -> E
+<IMPLEMENTS> -> implements ID
+<IMPLEMENTS> -> E
+<CLASS_BODY> -> <AM> <VAR_DEF> <CLASS_BODY>
+<CLASS_BODY> -> <AM> <FUNC_DEF> <CLASS_BODY>
+<CLASS_BODY> -> <CONSTRUCTOR> <CLASS_BODY>
+<CLASS_BODY> -> <BODY> <CLASS_BODY>
+<CLASS_BODY> -> E
+
+
+
+
+
+
+
