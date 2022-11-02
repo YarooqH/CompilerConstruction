@@ -5,13 +5,12 @@ public class SyntaxAnalyzer
     List<TokenObj> tokens;
     Dictionary<string,List<string[]>> rules;
     int index = 0;
-    LexicalAnalyzer la = new LexicalAnalyzer();
+    // LexicalAnalyzer la = new LexicalAnalyzer();
     public SyntaxAnalyzer(List<TokenObj> tokens)
     {
         this.rules = new Dictionary<string,List<string[]>>();
         this.tokens = tokens;
         this.getRules();
-        // this.printRules();
     }
     private void getRules()
     {
@@ -35,7 +34,7 @@ public class SyntaxAnalyzer
     {
         string[] keys = new string[rules.Keys.Count];
         rules.Keys.CopyTo(keys, 0);
-        int index = 0;
+        index = 0;
         foreach (List<string[]> items in rules.Values)
         {
 
@@ -71,14 +70,14 @@ public class SyntaxAnalyzer
     }
     private bool helper(String currentNT)
     {
-        System.Console.WriteLine(rules[currentNT]);
+        // System.Console.WriteLine(rules[currentNT]);
 
         List<String[]> productionRules = rules[currentNT];
         System.Console.WriteLine("=======================");
 
         foreach (String[] pr in productionRules)        
         {
-            System.Console.WriteLine("% " + currentNT + " -> " );
+            System.Console.WriteLine(" % " + currentNT + " -> " );
             int prev = index;
             int j = 0;
             for (; j < pr.Length; j++) {
@@ -101,17 +100,14 @@ public class SyntaxAnalyzer
                 }
                 else
                 {
-                    System.Console.WriteLine("HERE IN TERMINAL");
-                    System.Console.WriteLine("tokens.get(index).type =" + tokens[index].classPart.ToString() + "'");
-                    System.Console.WriteLine("tokens.get(index).type =" + tokens[index].word + "'");
-                    // string a = la.ht.Contains();
-
-                    Console.WriteLine(element + " : "  + tokens[index].classPart.ToString() );
+                    // System.Console.WriteLine("HERE IN TERMINAL");
+                    System.Console.WriteLine("token type = " + tokens[index].classPart.ToString());
+                    System.Console.WriteLine("word = " + tokens[index].word);
                     
                     if (string.Equals(element, tokens[index].classPart.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         index++;
-                        System.Console.WriteLine("Matched Terminal =" + element);
+                        System.Console.WriteLine("Matched Terminal = " + element);
                     } else {
                         break;
                     }

@@ -4,7 +4,7 @@ addTwo 			ID 			1
 ) 			CRB 			1
 returns 			RETURNS 			1
 ( 			ORB 			1
-void 			DT 			1
+string 			DT 			1
 ) 			CRB 			1
 { 			OCB 			1
 } 			CCB 			3

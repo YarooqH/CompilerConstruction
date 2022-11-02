@@ -1,4 +1,4 @@
-<START> -> <DEFS> main ORBCRB OCB <MST> CCB $
+<START> -> <DEFS> main ORB CRB OCB <MST> CCB ^
 
 <DEFS> -> <CLASS_DEF> <DEFS>
 <DEFS> -> <OBJ_DEF> <DEFS>
@@ -21,7 +21,7 @@
 <DT> -> bool
 <DT> -> void
 
-<DT> -> ID
+#<DT> -> ID
 
 <FUNC_DEF> -> func ID ORB <PARAM> CRB <RETURNS> OCB <MST> CCB
 
@@ -59,7 +59,7 @@
 <MST> -> <SST> <MST>
 <MST> -> E
 
-<SST> -> <WHILE_St>
+<SST> -> <WHILE_ST>
 <SST> -> <FOR_ST>
 <SST> -> <DO_WHILE_ST>
 <SST> -> <IF_ELSE_ST>
@@ -116,15 +116,15 @@
 
 <DO_WHILE_ST> -> do <BODY> while ORB <OE> CRB;
 
-<IF_ST> -> if ORB <OE> CRB <BODY> <ELSE>
+<IF_ELSE_ST> -> if ORB <OE> CRB <BODY> <ELSE>
 <ELSE> -> else <BODY>
 
 <OBJ_DEF> -> new ID ORB <OE> CRB;
 
-<RETURNS> -> returns ORB <RETURNS_DT> CRB
+<RETURNS> -> RETURNS ORB DT CRB
 <RETURNS_DT> -> <DT>
-<RETURNS_DT> -> array
-<RETURNS_DT> -> E
+#<RETURNS_DT> -> array
+#<RETURNS_DT> -> E
 
 <RETURN> -> return <OE>
 

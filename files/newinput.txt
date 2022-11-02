@@ -1,0 +1,7 @@
+main () {
+    let ID: number = 1 ;
+
+    function ID () {
+        let ID: number = 2 ;
+    }
+} $
