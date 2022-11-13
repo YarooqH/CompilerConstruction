@@ -1,4 +1,4 @@
-<START> -> <DEFS> main ORB CRB OCB <MST> CCB ^
+<START> -> <DEFS> func main ORB CRB OCB <MST> CCB ^
 
 <DEFS> -> <CLASS_DEF> <DEFS>
 <DEFS> -> <OBJ_DEF> <DEFS>
@@ -8,18 +8,18 @@
 <DEFS> -> <ARRAY_DEF> <DEFS>
 <DEFS> -> E
 
-<VAR_DEF> -> <VAR_TYPE> ID: <DT> <INIT>
+<VAR_DEF> -> <VAR_TYPE> ID COL <DT> <INIT>
 <VAR_TYPE> -> let
 <VAR_TYPE> -> const
-<INIT> -> = <CONST> <LIST>
+<INIT> -> ASIGN <CONST> <LIST>
 <INIT> -> E
-<LIST> -> ;
-<LIST> -> , ID <INIT> <LIST>
+<LIST> -> SEMICOL
+<LIST> -> COM ID <INIT> <LIST>
 
-<DT> -> number
-<DT> -> string
-<DT> -> bool
-<DT> -> void
+<DT> -> DT
+#<DT> -> string
+#<DT> -> bool
+#<DT> -> void
 
 #<DT> -> ID
 
@@ -30,13 +30,14 @@
 <PARAM> -> E
 
 <OE> -> <AE> <OE'>
-<OE'> -> || <AE> <OE'>
+<OE'> -> OR <AE> <OE'>
 <OE'> -> E
 <AE> -> <RE> <AE'>
-<AE'> -> && <RE> <AE'>
+<AE'> -> AND <RE> <AE'>
 <AE'> -> E
 <RE> -> <E> <RE'>
-<RE'> -> ROP <E> <RE'> 
+<RE'> -> <ROP> <E> <RE'> 
+<ROP> -> COMP
 <RE'> -> E
 <E> -> <T> <E'>
 <E'> -> PM <T> <E'>
@@ -45,19 +46,26 @@
 <T'> -> MDM <F> <T'>
 <T'> -> E
 <F> -> ID <F'>
-<F> -> CONST
+<F> -> <CONST>
 <F> -> <INC_DEC>
 <F'> -> E
 <F'> -> <INC_DEC>
 
 <CONSTRUCTOR> -> constructor ORB <OE> CRB OCB <MST> CCB
 
+<CONST> -> NUM
+<CONST> -> SC
+
 <BODY> -> <SST>
 <BODY> -> <MST>
 <BODY> -> E
 
-<MST> -> <SST> <MST>
-<MST> -> E
+<MST> -> <SST> <MST1>
+<MST1> -> <SST> <MST2>
+<MST2> -> <SST> <MST3>
+<MST3> -> E
+#<MST> -> E
+#<MST1> -> E
 
 <SST> -> <WHILE_ST>
 <SST> -> <FOR_ST>
@@ -72,61 +80,60 @@
 <SST> -> <PARENT>
 
 <CURRENT> -> current.
-<CURRENT> -> E
 
 <PARENT> -> parent.
-<PARENT> -> E
 
-<INC_DEC> -> <INC_DEC_BODY> <CURRENT> ID ;
+<INC_DEC> -> <INC_DEC_BODY> <CURRENT> ID SEMICOL
 #<LHP>
 <INC_DEC_BODY> -> ++
 <INC_DEC_BODY> -> --
 
-<INHERITANCE> -> >> ID <INHERITANCE>
+<INHERITANCE> -> EXT ID <INHERITANCE>
 <INHERITANCE> -> E
 
 <ASSIGN_ST> -> <CURRENT> ID <INIT> <LIST>
-<ASSIGN_OP> -> =
+<ASSIGN_OP> -> ASIGN
 <ASSIGN_OP> -> <ARITH_ASSIGN>
 <ARITH_ASSIGN> -> +=
 <ARITH_ASSIGN> -> -=
 <ARITH_ASSIGN> -> *=
 <ARITH_ASSIGN> -> /=
 
-<ARRAY_DEF> -> <VAR_TYPE> ID: <DT> [ <ARR> ]
-<ARR> -> [ <ARR> ]
+<ARRAY_DEF> -> <VAR_TYPE> ID COL <DT> OSB <ARR> CSB
+<ARR> -> OSB <ARR> CSB
 <ARR> -> <OE>
-<ARR> -> E
 
 <ACC_MOD> -> scoped
 <ACC_MOD> -> protected
 <ACC_MOD> -> E
 
-<FOR_ST> -> for ORB <S1> <S2> ; <S3> CRB <BODY> 
+<FOR_ST> -> for ORB <S1> <S2> SEMICOL <S3> CRB OCB <BODY> CCB 
 <S1> -> <VAR_DEF>
-<S1> -> <ASSIGN_ST>;
-<S1> -> ;
+<S1> -> <ASSIGN_ST> SEMICOL
+<S1> -> SEMICOL
 <S2> -> <OE>
 <S2> -> E
 <S3> -> ID
 <S3> -> <INC_DEC> ID
 <S3> -> E
 
-<WHILE_ST> -> while ORB <OE> CRB <BODY>
+<WHILE_ST> -> while ORB <OE> CRB OCB <BODY> CCB
 
-<DO_WHILE_ST> -> do <BODY> while ORB <OE> CRB;
+<DO_WHILE_ST> -> do OCB <BODY> CCB while ORB <OE> CRB SEMICOL
 
-<IF_ELSE_ST> -> if ORB <OE> CRB <BODY> <ELSE>
+<IF_ELSE_ST> -> if ORB <OE> CRB OCB <BODY> CCB <ELSE>
 <ELSE> -> else <BODY>
 
-<OBJ_DEF> -> new ID ORB <OE> CRB;
+<OBJ_DEF> -> new ID ORB <OE> CRB SEMICOL
 
-<RETURNS> -> RETURNS ORB DT CRB
+<RETURNS> -> returns ORB DT CRB
 <RETURNS_DT> -> <DT>
 #<RETURNS_DT> -> array
 #<RETURNS_DT> -> E
 
-<RETURN> -> return <OE>
+<RETURN> -> return <RETURN_TYPE>
+<RETURN_TYPE> -> DT
+<RETURN_TYPE> -> ID
 
 <ABSTRACT_DEF> -> abstract ID OCB <ABS_BODY> CCB
 <ABS_BODY> -> <FUNC_DEF> <ABS_BODY> 
@@ -134,7 +141,6 @@
 <ABS_BODY> -> E
 <DEC> -> <VAR_DEF> <DEC>
 <DEC> -> E
-
 
 <CLASS_MOD> -> avail
 <CLASS_MOD> -> const
@@ -144,7 +150,7 @@
 <CLASS_DEF> -> <AM> class ID <INHERITANCE_CLASS> <CLASS_BODY>
 <AM> -> <ACC_MOD> <CLASS_MOD>
 <AM> -> E
-<INHERITANCE_CLASS> -> >> ID <IMPLEMENTS> 
+<INHERITANCE_CLASS> -> EXT ID <IMPLEMENTS> 
 <INHERITANCE_CLASS> -> E
 <IMPLEMENTS> -> implements ID
 <IMPLEMENTS> -> E

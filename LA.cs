@@ -28,16 +28,18 @@ class LA
             {"break", TokenClass.BREAK}, {"continue", TokenClass.CONT},
             {"number", TokenClass.DT}, {"bool", TokenClass.DT},
             {"string", TokenClass.DT}, {"void", TokenClass.DT},
+            {"main", TokenClass.MAIN},
             {";", TokenClass.SEMICOL}, {":", TokenClass.COL}, 
-            {",",TokenClass.COM},
-            {">>", TokenClass.EXT}, {"null", TokenClass.NULL}, 
+            {",",TokenClass.COM}, 
+            {">>", TokenClass.EXT}, 
+            {"null", TokenClass.NULL}, 
             {"abstract", TokenClass.ABS}, {"avail", TokenClass.AVAIL},
             {"new", TokenClass.NEW}, {"class", TokenClass.CLASS}, 
             {"const", TokenClass.CONST}, {"let", TokenClass.LET}, 
             {"current", TokenClass.CURR}, {"super", TokenClass.PARENT}, 
             {"public", TokenClass.AM}, {"scoped", TokenClass.AM},
             {"protected", TokenClass.AM}, {"func", TokenClass.FUNC},
-            {"constructor", TokenClass.CONSTRUCTOR}
+            {"constructor", TokenClass.CONSTRUCTOR},
             // {"$", TokenClass.ENDPROG}
         };
     
@@ -81,7 +83,7 @@ class LA
             else if (w[0][0] == '\'')
             {
                 regex = new Regex("^[\']([\\\\][abfnrtv0\"\'\\\\]|[^(\"\'\\\\)]|[()])[\']$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new TokenObj(w[1], TokenClass.CC, w[0].Trim('\''))); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new TokenObj(w[1], TokenClass.SC, w[0].Trim('\''))); continue; }
 
                 else { tokens.Add(new TokenObj(w[1], TokenClass.ERR, w[0])); continue; }
 

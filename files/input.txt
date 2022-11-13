@@ -1,3 +1,10 @@
-func addTwo () returns ( string ) {
-    
+func addTwo ( ) returns ( void ) {
+
+}
+
+let i : number = 3 ;
+const a : string = "HEllo world";
+
+func main ( ) {
+
 } ^

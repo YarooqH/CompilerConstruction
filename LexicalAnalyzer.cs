@@ -59,12 +59,13 @@ public class LexicalAnalyzer
         hashTable.Add("class", TokenClass.CLASS);
         hashTable.Add("const", TokenClass.CONST);
         hashTable.Add("let", TokenClass.LET);
+        hashTable.Add("main", TokenClass.MAIN);
         hashTable.Add("current", TokenClass.CURR);
         hashTable.Add("super", TokenClass.PARENT);
         hashTable.Add("public", TokenClass.AM);
         hashTable.Add("scoped", TokenClass.AM);
         hashTable.Add("protected", TokenClass.AM);
-        hashTable.Add("function", TokenClass.FUNC);
+        hashTable.Add("func", TokenClass.FUNC);
     }
 
     public ArrayList generateTokens(ArrayList wordsList){

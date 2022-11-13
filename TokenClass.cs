@@ -7,6 +7,7 @@ public enum TokenClass {
     FOR,
     BREAK,          // Break
     CONT,           // Continue
+    MAIN,
     PM,              // Plus - Minus
     MDM,             // Multiply - Divide - Modulus
     COMP,            // Comparison Operators

@@ -14,6 +14,15 @@ class SemanticAnalyzer {
         functionTable = new Dictionary<string, FunctionDataTable>();
     }
 
+    public void createScope(){
+        scopeNum++;
+        currentScope.Push(scopeNum);
+    }
+
+    public void destroyScope(){
+        currentScope.Pop();
+    }
+
     bool insertMainTable(string name, string type, string typeModifier, string extendingClass){
         if(mainTable.ContainsKey(name)){
             return false;
@@ -48,7 +57,7 @@ class SemanticAnalyzer {
     }
 
     bool insertClassTable(string name, string type, string accessModifier, bool isFinal, bool isAbstract, string currentClassName){
-        string key = (name + ':' + type).Split("->")[0];
+        string key = (name + ':' + type).Split(">>")[0];
 
         if (mainTable[currentClassName].classDT.ContainsKey(key) || mainTable[currentClassName].classDT.ContainsKey(name)){
             return false;
@@ -61,27 +70,18 @@ class SemanticAnalyzer {
         }
     }
 
-    ClassDataTable? lookUpCT(string name, string currentClassName){
-        if(mainTable[currentClassName].classDT.ContainsKey(name)){
-            return mainTable[currentClassName].classDT[name];
-        } else {
-            return null;
-        }
-    }
+    // ClassDataTable? lookUpCT(string name, string currentClassName){
+    //     if(mainTable[currentClassName].classDT.ContainsKey(name)){
+    //         return mainTable[currentClassName].classDT[name];
+    //     } else {
+    //         return null;
+    //     }
+    // }
     ClassDataTable? lookUpCT(string name, string type, string currentClassName){
-        if(mainTable[currentClassName].classDT.ContainsKey((name + ':' + type).Split("->")[0])){
-            return mainTable[currentClassName].classDT[(name + ':' + type).Split("->")[0]];
+        if(mainTable[currentClassName].classDT.ContainsKey((name + ':' + type).Split(">>")[0])){
+            return mainTable[currentClassName].classDT[(name + ':' + type).Split(">>")[0]];
         } else {
             return null;
         }
-    }
-
-    public void createScope(){
-        scopeNum++;
-        currentScope.Push(scopeNum);
-    }
-
-    public void destroyScope(){
-        currentScope.Pop();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class SyntaxAnalyzer
 {
     List<TokenObj> tokens;
-    Dictionary<string,List<string[]>> rules;
+    Dictionary<string, List<string[]>> rules;
     int index = 0;
     // LexicalAnalyzer la = new LexicalAnalyzer();
     public SyntaxAnalyzer(List<TokenObj> tokens)
@@ -37,7 +37,6 @@ public class SyntaxAnalyzer
         index = 0;
         foreach (List<string[]> items in rules.Values)
         {
-
             System.Console.Write($"{keys[index]} -> ");
             index += 1;
             System.Console.Write("[");
@@ -82,7 +81,7 @@ public class SyntaxAnalyzer
             int j = 0;
             for (; j < pr.Length; j++) {
                 String element = pr[j];                
-                System.Console.WriteLine("\nElement :" + element + "' { of :" + currentNT + "}");
+                System.Console.WriteLine("\nCFG Terminal " + element + " of :" + currentNT );
                 if (element[0] == '^') {
                     ++index;
                     return true;
