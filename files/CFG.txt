@@ -12,7 +12,8 @@
 <VAR_TYPE> -> let
 <VAR_TYPE> -> const
 <INIT> -> ASIGN <CONST> <LIST>
-<INIT> -> E
+<INIT> -> ASIGN ID <LIST>
+<INIT> -> SEMICOL
 <LIST> -> SEMICOL
 <LIST> -> COM ID <INIT> <LIST>
 
@@ -25,8 +26,8 @@
 
 <FUNC_DEF> -> func ID ORB <PARAM> CRB <RETURNS> OCB <MST> CCB
 
-<PARAM> -> ID
-<PARAM> -> <DT>
+<PARAM> -> ID <PARAM>
+<PARAM> -> <DT> <PARAM>
 <PARAM> -> E
 
 <OE> -> <AE> <OE'>
@@ -51,7 +52,7 @@
 <F'> -> E
 <F'> -> <INC_DEC>
 
-<CONSTRUCTOR> -> constructor ORB <OE> CRB OCB <MST> CCB
+<CONSTRUCTOR> -> constructor ORB <PARAM> CRB OCB <MST> CCB
 
 <CONST> -> NUM
 <CONST> -> SC
@@ -60,10 +61,12 @@
 <BODY> -> <MST>
 <BODY> -> E
 
-<MST> -> <SST> <MST1>
-<MST1> -> <SST> <MST2>
-<MST2> -> <SST> <MST3>
-<MST3> -> E
+<MST> -> <SST> <MST>
+<MST> -> E
+
+#<MST1> -> <SST> <MST2>
+#<MST2> -> <SST> <MST3>
+#<MST3> -> E
 #<MST> -> E
 #<MST1> -> E
 
@@ -75,9 +78,10 @@
 <SST> -> <INC_DEC>
 <SST> -> <FUNC_DEF>
 <SST> -> <ARRAY_DEF>
+<SST> -> <RETURN>
 <SST> -> <CONSTRUCTOR>
-<SST> -> <CURRENT>
-<SST> -> <PARENT>
+#<SST> -> <CURRENT>
+#<SST> -> <PARENT>
 
 <CURRENT> -> current.
 
@@ -93,18 +97,20 @@
 
 <ASSIGN_ST> -> <CURRENT> ID <INIT> <LIST>
 <ASSIGN_OP> -> ASIGN
-<ASSIGN_OP> -> <ARITH_ASSIGN>
-<ARITH_ASSIGN> -> +=
-<ARITH_ASSIGN> -> -=
-<ARITH_ASSIGN> -> *=
-<ARITH_ASSIGN> -> /=
+<ASSIGN_OP> -> COMP
+#<ARITH_ASSIGN> -> +=
+#<ARITH_ASSIGN> -> -=
+#<ARITH_ASSIGN> -> *=
+#<ARITH_ASSIGN> -> /=
 
-<ARRAY_DEF> -> <VAR_TYPE> ID COL <DT> OSB <ARR> CSB
-<ARR> -> OSB <ARR> CSB
-<ARR> -> <OE>
+<ARRAY_DEF> -> <VAR_TYPE> ID COL <DT> OSB CSB SEMICOL
+#<ARR> -> OSB <ARR> CSB
+#<ARR> -> <OE>
 
-<ACC_MOD> -> scoped
-<ACC_MOD> -> protected
+#<ACC_MOD> -> scoped
+#<ACC_MOD> -> protected
+<ACC_MOD> -> avail
+<ACC_MOD> -> AM
 <ACC_MOD> -> E
 
 <FOR_ST> -> for ORB <S1> <S2> SEMICOL <S3> CRB OCB <BODY> CCB 
@@ -122,7 +128,7 @@
 <DO_WHILE_ST> -> do OCB <BODY> CCB while ORB <OE> CRB SEMICOL
 
 <IF_ELSE_ST> -> if ORB <OE> CRB OCB <BODY> CCB <ELSE>
-<ELSE> -> else <BODY>
+<ELSE> -> else OCB <BODY> CCB
 
 <OBJ_DEF> -> new ID ORB <OE> CRB SEMICOL
 
@@ -131,7 +137,7 @@
 #<RETURNS_DT> -> array
 #<RETURNS_DT> -> E
 
-<RETURN> -> return <RETURN_TYPE>
+<RETURN> -> return <RETURN_TYPE> SEMICOL
 <RETURN_TYPE> -> DT
 <RETURN_TYPE> -> ID
 
@@ -147,18 +153,18 @@
 <CLASS_MOD> -> abstract
 <CLASS_MOD> -> E
 
-<CLASS_DEF> -> <AM> class ID <INHERITANCE_CLASS> <CLASS_BODY>
+<CLASS_DEF> -> <AM> class ID <INHERITANCE_CLASS> OCB <CLASS_BODY> CCB
 <AM> -> <ACC_MOD> <CLASS_MOD>
 <AM> -> E
 <INHERITANCE_CLASS> -> EXT ID <IMPLEMENTS> 
 <INHERITANCE_CLASS> -> E
 <IMPLEMENTS> -> implements ID
 <IMPLEMENTS> -> E
-<CLASS_BODY> -> <AM> <VAR_DEF> <CLASS_BODY>
-<CLASS_BODY> -> <AM> <FUNC_DEF> <CLASS_BODY>
+<CLASS_BODY> -> <ACC_MOD> <VAR_DEF> <CLASS_BODY>
+<CLASS_BODY> -> <ACC_MOD> <FUNC_DEF> <CLASS_BODY>
 <CLASS_BODY> -> <CONSTRUCTOR> <CLASS_BODY>
-<CLASS_BODY> -> <BODY> <CLASS_BODY>
-<CLASS_BODY> -> E
+<CLASS_BODY> -> <BODY>
+#<CLASS_BODY> -> E
 
 
 

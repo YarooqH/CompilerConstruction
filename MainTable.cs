@@ -16,4 +16,9 @@ class MainTable {
         classDT = new Dictionary<string, ClassDataTable>();
     }
 
+    public override string? ToString()
+    {
+        return "{"+name+", "+type+", "+"typeModifier: "+typeModifier.ToString()+ ", extendingClass: " + extendingClass + "}";
+    }
+
 }

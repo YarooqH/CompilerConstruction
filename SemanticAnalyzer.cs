@@ -4,26 +4,36 @@ using System.Collections;
 class SemanticAnalyzer {
     public Dictionary<string, MainTable> mainTable;
     public Dictionary<string, FunctionDataTable> functionTable;
+    public Dictionary<string, GlobalTable> globalTable;
     public int scopeNum = 0;
-
     public string currentClassName; 
-    Stack currentScope = new Stack();
+    public List<int> currentScope = new List<int>();
+    // public Stack currentScope = new Stack();
 
     public SemanticAnalyzer(){
+        globalTable = new Dictionary<string, GlobalTable>();
         mainTable = new Dictionary<string, MainTable>();
         functionTable = new Dictionary<string, FunctionDataTable>();
     }
+    
+    // public void createScope(){
+    //     scopeNum++;
+    //     currentScope.Push(scopeNum);
+    // }
 
-    public void createScope(){
-        scopeNum++;
-        currentScope.Push(scopeNum);
+    // public void destroyScope(){
+    //     currentScope.Pop();
+    // }
+    public void createScope() { scopeNum += 1; currentScope.Add(scopeNum); }
+    public void destroyScope() { currentScope.RemoveAt(currentScope.Count - 1); }
+    public bool insertGlobalData(string name, string type, bool sta, bool final)
+    {
+        if (globalTable.ContainsKey(name)) return false;
+        globalTable[name] = new GlobalTable(name, type, final);
+        return true;
+
     }
-
-    public void destroyScope(){
-        currentScope.Pop();
-    }
-
-    bool insertMainTable(string name, string type, string typeModifier, string extendingClass){
+    public bool insertMainTable(string name, string type, string typeModifier, string extendingClass){
         if(mainTable.ContainsKey(name)){
             return false;
         }
@@ -31,7 +41,7 @@ class SemanticAnalyzer {
         return true;
     }
 
-    MainTable? lookUpMT(string name){
+    public MainTable? lookUpMT(string name){
         if(mainTable.ContainsKey(name)){
             return mainTable[name];
         }
@@ -59,15 +69,20 @@ class SemanticAnalyzer {
     bool insertClassTable(string name, string type, string accessModifier, bool isFinal, bool isAbstract, string currentClassName){
         string key = (name + ':' + type).Split(">>")[0];
 
-        if (mainTable[currentClassName].classDT.ContainsKey(key) || mainTable[currentClassName].classDT.ContainsKey(name)){
-            return false;
-        } else if (type.Contains("->")){
-            mainTable[currentClassName].classDT[key] = new ClassDataTable(name, type, accessModifier, isFinal, isAbstract);
-            return true;
+        if(currentClassName != null){
+            if (mainTable[currentClassName].classDT.ContainsKey(key) || mainTable[currentClassName].classDT.ContainsKey(name)){
+                return false;
+            } else if (type.Contains("->")){
+                mainTable[currentClassName].classDT[key] = new ClassDataTable(name, type, accessModifier, isFinal, isAbstract);
+                return true;
+            } else {
+                mainTable[currentClassName].classDT[name] = new ClassDataTable(name, type, accessModifier, isFinal, isAbstract);
+                return true;
+            } 
         } else {
-            mainTable[currentClassName].classDT[name] = new ClassDataTable(name, type, accessModifier, isFinal, isAbstract);
-            return true;
+                return false;
         }
+
     }
 
     // ClassDataTable? lookUpCT(string name, string currentClassName){
@@ -83,5 +98,20 @@ class SemanticAnalyzer {
         } else {
             return null;
         }
+    }
+
+    public string? compatibility(string left, string right, string op){
+        if (left == "string" && right == "string")
+        {
+            if (op == "+") { return "string"; }
+            else if (op == "==" || op == "!=") { return "boolean"; }
+        }
+        else if (left != "string" && right != "string")  // else if ((left == "float" || left == "int" || left == "char") && (right == "float" || right == "int" || right == "char"))
+        {
+            if (op == "<" || op == ">" || op == "==" || op == "<=" || op == ">=" || op == "!=") { return "boolean"; }
+            else if (left == "number" && right == "number") { return "number"; }
+            // else if (right != "char" && left != "char") { return "number"; }
+        }
+        return null;
     }
 }

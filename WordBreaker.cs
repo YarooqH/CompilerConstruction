@@ -6,6 +6,9 @@ public class WordBreaker
     private char[] wordBreakers = { 
         '(',')','[',']','{','}',';',':',',','+','-','*','/','%','<','>','=','!',' ','\'','"', '@', '&', '|'
     };
+    // private string[] wordBreakers1 = { 
+    //     "(",")","[","]","{","}",";",":",",","+","-","*","/","%","<",">","=","!"," ","\"",""", "@", "&", "|"
+    // };
     private int i, lineNo;
     private string word = "";
     private ArrayList wordsLi;
@@ -183,16 +186,24 @@ public class WordBreaker
     }
     private bool isOP(string singleWord)
     {
-        if ((singleWord[i] == '>' || singleWord[i] == '<' || singleWord[i] == '=' || singleWord[i] == '!') && singleWord[i + 1] == '=')
-        {
-            createWord(singleWord[i].ToString() + singleWord[i + 1].ToString());
-            i++;
-            return true;
-        } else if(singleWord[i] == '>' && singleWord[i + 1] == '>'){
+        if(singleWord[i] == '>' && singleWord[i + 1] == '>'){
+            // Console.WriteLine("BANANA");
             createWord(singleWord[i].ToString() + singleWord[i+1].ToString());
             i++;
             return true;
         }
+        else if ((singleWord[i] == '>' || singleWord[i] == '<' || singleWord[i] == '=' || singleWord[i] == '!') && singleWord[i + 1] == '=')
+        {
+            // Console.WriteLine("BANANA Milshake");
+            createWord(singleWord[i].ToString() + singleWord[i + 1].ToString());
+            i++;
+            return true;
+        } 
+        // else if(singleWord[i] == '>' && singleWord[i + 1] == '>'){
+        //     createWord(singleWord[i].ToString() + singleWord[i+1].ToString());
+        //     i++;
+        //     return true;
+        // }
         else return false;
     }
 

@@ -16,4 +16,9 @@ class ClassDataTable{
         this.isFinal = _final;
         this.isAbstract = _abstract;
     }
+
+     public override string? ToString()
+    {
+        return "{"+name+", "+type+", "+"AM: "+accessModifier.ToString()+", isFinal: " + isFinal.ToString() + ", isAbstract: " + isAbstract.ToString() + "}";
+    }
 }

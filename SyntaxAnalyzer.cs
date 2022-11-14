@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 public class SyntaxAnalyzer
 {
-    List<TokenObj> tokens;
+    SemanticAnalyzer SE = new SemanticAnalyzer();
     Dictionary<string, List<string[]>> rules;
+    List<TokenObj> tokens;
+    List<TokenObj> pTokens;
+    HashSet<string> bTokens;
     int index = 0;
+    bool expmode = false;
     // LexicalAnalyzer la = new LexicalAnalyzer();
     public SyntaxAnalyzer(List<TokenObj> tokens)
     {
@@ -105,6 +109,12 @@ public class SyntaxAnalyzer
                     
                     if (string.Equals(element, tokens[index].classPart.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
+                        checkScope();
+                        pTokens.Add(tokens[index]);
+                        if (tokens[index].classPart == TokenClass.SC || tokens[index].classPart == TokenClass.OCB)
+                        {
+                            if (!secheck()) { return false; }
+                        }
                         index++;
                         System.Console.WriteLine("Matched Terminal = " + element);
                     } else {
@@ -122,5 +132,95 @@ public class SyntaxAnalyzer
         }
         return false;
     }
+
+    private bool secheck()
+    {
+        if (pTokens[1].classPart == TokenClass.CLASS || pTokens[2].classPart == TokenClass.CLASS)
+        {
+            return classSE();
+        }
+        return true;
+    }
+
+    private bool classSE()
+    {
+        string name = "";
+        string type = "";
+        string tm = "";
+        string ext = "";
+        int i = 0;
+        for (; i < pTokens.Count; i++)
+        {
+            if (pTokens[i].classPart == TokenClass.CLASS)
+            {
+                i++;
+                type = "CLASS";
+                name = pTokens[i].word;
+            }
+
+            else if (pTokens[i].classPart == TokenClass.CONST || pTokens[i].classPart == TokenClass.ABS) tm = pTokens[i].classPart.ToString();
+
+            else if (pTokens[i].classPart == TokenClass.EXT)
+            {
+                i++;
+                for (; i < pTokens.Count; i++)
+                {
+                    if (pTokens[i].classPart == TokenClass.OCB) continue;
+
+                    else if (pTokens[i].classPart == TokenClass.COM) ext += ",";
+
+                    else ext += pTokens[i].word.ToString();
+                }
+            }
+        }
+
+        if (SE.lookUpMT(name) != null) { System.Console.WriteLine("Re-Decleared class:" + name + " at lineNo: " + tokens[index - 1].lineNum); return false; }
+
+        else if (SE.lookUpMT(ext) == null && ext != "") { System.Console.WriteLine("Parent class : " + ext + " isn't Decleared"); return false; }
+
+        else if (SE.lookUpMT(ext) != null)
+        {
+            if (SE.lookUpMT(ext)?.typeModifier == "CONST") { System.Console.WriteLine("Parent class : " + ext + " is Decleared as FINAL class"); return false; }
+        }
+        pTokens.Clear();
+        SE.currentClassName = name;
+        return SE.insertMainTable(name, type, tm, ext);
+    }
+
+     public void checkScope()
+    {
+        System.Console.WriteLine("Matched Terminal = " + tokens[index].classPart.ToString());
+
+        if (tokens[index].classPart == TokenClass.CLASS) { SE.currentScope.Add(0); printScopeStack(); }
+
+        else if (tokens[index].classPart.ToString() == "ORB" && (tokens[index - 1].classPart.ToString() == "ID" || tokens[index - 1].classPart.ToString() == "EXECUTE")) { SE.createScope(); printScopeStack(); }
+
+        else if (tokens[index].classPart.ToString() == "OCB" && tokens[index - 1].classPart.ToString() == "CRB") { SE.createScope(); printScopeStack(); }
+
+        else if (tokens[index].classPart.ToString() == "CCB") { SE.destroyScope(); printScopeStack(); }
+    }
+    private void printScopeStack()
+    {
+        System.Console.WriteLine("Scope Count " + SE.scopeNum);
+        System.Console.WriteLine("--scope stack--");
+        System.Console.Write("[ ");
+
+        foreach (int val in SE.currentScope) System.Console.Write(val + ",");
+
+        System.Console.Write(" ]");
+        System.Console.WriteLine();
+    }
+    string? getType(List<TokenObj> expression)
+    {
+
+        return null;
+    }
+
+    // private bool updateExpMode()
+    // {
+    //     if (tokens[index].classPart.ToString() == "ORB" || tokens[index].classPart.ToString() == "ASI" || tokens[index].classPart.ToString() == "OSB") { expmode = true; }
+    //     else if (tokens[index].classPart.ToString() == "CRB" || tokens[index].classPart.ToString() == "SC" || tokens[index].classPart.ToString() == "CSB") { expmode = false; getType(expression); }
+    //     return expmode;
+    // }
 
 }

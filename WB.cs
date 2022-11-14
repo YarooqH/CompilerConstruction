@@ -206,14 +206,38 @@ public class WB
         i = index + 1;
         return false;
     }
-    private bool Check_RO(string l)
+    // private bool Check_RO(string l)
+    // {
+    //     if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
+    //     {
+    //         createWord(l[i].ToString() + l[i + 1].ToString());
+    //         i++;
+    //         return true;
+    //     }
+    //     else return false;
+    // }
+
+     private bool Check_RO(string singleWord)
     {
-        if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
-        {
-            createWord(l[i].ToString() + l[i + 1].ToString());
+        if(singleWord[i] == '>' && singleWord[i + 1] == '>'){
+            // Console.WriteLine("BANANA");
+            createWord(singleWord[i].ToString() + singleWord[i+1].ToString());
             i++;
             return true;
         }
+        else if ((singleWord[i] == '>' || singleWord[i] == '<' || singleWord[i] == '=' || singleWord[i] == '!') && singleWord[i + 1] == '=')
+        {
+            // Console.WriteLine("BANANA Milshake");
+            createWord(singleWord[i].ToString() + singleWord[i + 1].ToString());
+            i++;
+            return true;
+        } 
+        // else if(singleWord[i] == '>' && singleWord[i + 1] == '>'){
+        //     createWord(singleWord[i].ToString() + singleWord[i+1].ToString());
+        //     i++;
+        //     return true;
+        // }
         else return false;
     }
+
 }
