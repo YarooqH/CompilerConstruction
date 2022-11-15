@@ -1,79 +1,41 @@
-class 			CLASS 			1
-A 			ID 			1
->> 			EXT 			1
-B 			ID 			1
-{ 			OCB 			1
-constructor 			CONSTRUCTOR 			2
-( 			ORB 			2
-) 			CRB 			2
-{ 			OCB 			2
-let 			LET 			3
-name 			ID 			3
-: 			COL 			3
-string 			DT 			3
-; 			SEMICOL 			3
-let 			LET 			4
-rollno 			ID 			4
-: 			COL 			4
-number 			DT 			4
-; 			SEMICOL 			4
-} 			CCB 			5
-} 			CCB 			6
-func 			FUNC 			8
-addTwo 			ID 			8
-( 			ORB 			8
-) 			CRB 			8
-returns 			RETURNS 			8
-( 			ORB 			8
-void 			DT 			8
-) 			CRB 			8
-{ 			OCB 			8
-} 			CCB 			10
-let 			LET 			12
-i 			ID 			12
-: 			COL 			12
-number 			DT 			12
-= 			ASIGN 			12
-3 			NUM 			12
-; 			SEMICOL 			12
-const 			CONST 			13
-a 			ID 			13
-: 			COL 			13
-string 			DT 			13
-= 			ASIGN 			13
-HEllo world 			SC 			13
-; 			SEMICOL 			13
-class 			CLASS 			15
-a 			ID 			15
-{ 			OCB 			15
-avail 			AVAIL 			16
-let 			LET 			16
-num 			ID 			16
-: 			COL 			16
-number 			DT 			16
-= 			ASIGN 			16
-4.6 			NUM 			16
-; 			SEMICOL 			16
-protected 			AM 			17
-let 			LET 			17
-name 			ID 			17
-: 			COL 			17
-string 			DT 			17
-= 			ASIGN 			17
-yarooq 			SC 			17
-; 			SEMICOL 			17
-const 			CONST 			18
-banana 			ID 			18
-: 			COL 			18
-string 			DT 			18
-= 			ASIGN 			18
-Hello Banana 			SC 			18
-; 			SEMICOL 			18
-} 			CCB 			19
-func 			FUNC 			21
-main 			MAIN 			21
-( 			ORB 			21
-) 			CRB 			21
-{ 			OCB 			21
-} 			CCB 			23
-^ 			ERR 			23
+[ CLASS, class, 24 ]
+[ ID, A, 24 ]
+[ OCB, {, 24 ]
+[ LET, let, 25 ]
+[ ID, i, 25 ]
+[ COL, :, 25 ]
+[ DT, number, 25 ]
+[ SEMICOL, ;, 25 ]
+[ CONST, const, 26 ]
+[ ID, a, 26 ]
+[ COL, :, 26 ]
+[ DT, string, 26 ]
+[ SEMICOL, ;, 26 ]
+[ CCB, }, 28 ]
+[ FUNC, func, 29 ]
+[ MAIN, main, 29 ]
+[ ORB, (, 29 ]
+[ CRB, ), 29 ]
+[ OCB, {, 29 ]
+[ FUNC, func, 30 ]
+[ ID, addTwo, 30 ]
+[ ORB, (, 30 ]
+[ CRB, ), 30 ]
+[ RETURNS, returns, 30 ]
+[ ORB, (, 30 ]
+[ DT, void, 30 ]
+[ CRB, ), 30 ]
+[ OCB, {, 30 ]
+[ LET, let, 31 ]
+[ ID, a, 31 ]
+[ COL, :, 31 ]
+[ DT, string, 31 ]
+[ SEMICOL, ;, 31 ]
+[ LET, let, 32 ]
+[ ID, b, 32 ]
+[ COL, :, 32 ]
+[ DT, number, 32 ]
+[ SEMICOL, ;, 32 ]
+[ CCB, }, 33 ]
+[ CCB, }, 36 ]
+[ ERR, ^, 36 ]

@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-public class SyntaxAnalyzer
+public class Syntax
 {
     SemanticAnalyzer SE = new SemanticAnalyzer();
     Dictionary<string, List<string[]>> rules;
     List<TokenObj> tokens;
     List<TokenObj> pTokens;
+    bool bracktCheck = true;
     // HashSet<string> bTokens;
     int index = 0;
     // bool expmode = false;
     // LexicalAnalyzer la = new LexicalAnalyzer();
-    public SyntaxAnalyzer(List<TokenObj> tokens)
+    public Syntax(List<TokenObj> tokens)
     {
         this.rules = new Dictionary<string,List<string[]>>();
         this.tokens = tokens;
@@ -77,6 +78,7 @@ public class SyntaxAnalyzer
     {
         // System.Console.WriteLine(rules[currentNT]); 
         List<String[]> productionRules = rules[currentNT];
+        
         // System.Console.WriteLine("=======================");
 
         foreach (String[] pr in productionRules)        
@@ -114,11 +116,39 @@ public class SyntaxAnalyzer
                         if(tokens[index].classPart != TokenClass.CCB){
                             pTokens.Add(tokens[index]);
                         }
-                        if(tokens[index].classPart == TokenClass.SEMICOL || tokens[index].classPart == TokenClass.OCB){
-                            if (!secheck()) { return false; }
-                            pTokens.Clear();
+
+                        // if(tokens[index].classPart == TokenClass.SEMICOL || tokens[index].classPart == TokenClass.OCB){
+                        //     if (!secheck()) { return false; }
+                        //     pTokens.Clear();
+                        // }
+
+                        if (tokens[index].classPart == TokenClass.OCB && tokens[index - 1].classPart == TokenClass.ASIGN) {
+                            bracktCheck =false;
                         }
 
+                         if (pTokens.Count > 1)
+                        {
+                            if (tokens[index].classPart == TokenClass.CCB &&
+                                pTokens[1].classPart != TokenClass.CLASS &&
+                                pTokens[0].classPart != TokenClass.FUNC &&
+                                pTokens[0].classPart != TokenClass.WHILE &&
+                                pTokens[0].classPart != TokenClass.IF &&
+                                pTokens[0].classPart == TokenClass.MAIN) { pTokens.Add(tokens[index]); }
+
+                            if (tokens[index].classPart == TokenClass.SEMICOL ||
+                                (tokens[index].classPart == TokenClass.OCB &&
+                                (pTokens[0].classPart == TokenClass.MAIN ||
+                                 pTokens[1].classPart == TokenClass.CLASS ||
+                                 pTokens[0].classPart == TokenClass.FUNC ||
+                                 pTokens[0].classPart == TokenClass.WHILE ||
+                                 pTokens[0].classPart == TokenClass.IF)))
+                            {
+                                if (!secheck()) return false;
+
+                                pTokens.Clear();
+                                bracktCheck = true;
+                            }
+                        }
 
                         // Console.Write(tokens[index]);
                         // if (tokens[index].classPart == TokenClass.SC || tokens[index].classPart == TokenClass.OCB)
@@ -136,9 +166,9 @@ public class SyntaxAnalyzer
                 // System.Console.WriteLine("Successfully parsed from here");
                 return true;
             } 
-            else {
-                index = prev;
-            }
+            // else {
+            //     index = prev;
+            // }
 
         }
         return false;
@@ -332,6 +362,22 @@ public class SyntaxAnalyzer
     {
         return null;
     }
+
+     private bool SimpleStatementSE()
+    {
+        throw new NotImplementedException();
+    }
+
+    private bool If_WhileSE()
+    {
+        throw new NotImplementedException();
+    }
+
+    private bool ReturnSE()
+    {
+        throw new NotImplementedException();
+    }
+
     private bool VariableSE()
     {
         string name = "", type = "", am = "", valueType = "";
@@ -366,6 +412,7 @@ public class SyntaxAnalyzer
                 name = pTokens[i + 1].word;
                 i++;
             }
+            
             else if (pTokens[i].classPart == TokenClass.SEMICOL)
             {
                 // comentted until expmethod is not writtten
@@ -375,16 +422,16 @@ public class SyntaxAnalyzer
                 // }
                 if (SE.currentScope.Count == 0)
                 {
-                    if (!SE.insertGlobalData(name, type, sta, final)) { System.Console.WriteLine("\nVariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
+                    if (!SE.insertGlobalData(name, type, sta, final)) { System.Console.WriteLine("\nariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
                 }
                 // else if (SE.currentClassName != null && pTokens[0].classPart == TokenClass.CLASS)
                 else if (SE.currentClassName != null && pTokens[0].classPart == TokenClass.AM)
                 {
-                    if (!SE.insertClassTable(name, type, am, sta, final, false)) { System.Console.WriteLine("\nVariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
+                    if (!SE.insertClassTable(name, type, am, sta, final, false)) { System.Console.WriteLine("\nariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
                 }
                 else
                 {
-                    if (!SE.insertFunctionTable(name, type)) { System.Console.WriteLine("\nVariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
+                    if (!SE.insertFunctionTable(name, type)) { System.Console.WriteLine("\nariable RE-deleared on lineNum: " + pTokens[i].lineNum); Environment.Exit(0); }
                 }
             }
         }

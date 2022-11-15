@@ -1,3 +1,4 @@
+/*
 class A >> B {
     constructor () {
         let name: string ;
@@ -9,15 +10,27 @@ func addTwo ( ) returns ( void ) {
 
 }
 
-let i : number = 3 ;
-const a : string = "HEllo world";
 
-class a {
+let i : number ;
+const a : string ;
+
+
+protected class a {
     avail let num : number = 4.6 ;
     protected let name : string = "yarooq" ;
     const banana : string = "Hello Banana" ;   
 }
+*/
+class A {
+    let i : number ;
+    const a : string ;
 
+}
 func main ( ) {
+    func addTwo () returns ( void ) {
+        let a : string;
+        let b : number;
+    }
+
 
 } ^
